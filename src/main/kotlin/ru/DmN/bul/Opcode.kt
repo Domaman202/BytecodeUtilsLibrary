@@ -1,0 +1,24 @@
+package ru.DmN.bul
+
+import org.objectweb.asm.Opcodes
+
+enum class Opcode(val opcode: Int) {
+    INVOKE_INTERFACE(Opcodes.INVOKEINTERFACE),
+    INVOKE_SPECIAL(Opcodes.INVOKESPECIAL),
+    INVOKE_STATIC(Opcodes.INVOKESTATIC),
+    INVOKE_VIRTUAL(Opcodes.INVOKEVIRTUAL),
+
+    SET_FIELD(Opcodes.PUTFIELD),
+    GET_FIELD(Opcodes.GETFIELD),
+    SET_STATIC(Opcodes.PUTSTATIC),
+    GET_STATIC(Opcodes.GETSTATIC),
+
+    H_SET_FIELD(Opcodes.H_PUTFIELD),
+    H_GET_FIELD(Opcodes.H_GETFIELD),
+    H_SET_STATIC(Opcodes.H_PUTSTATIC),
+    H_GET_STATIC(Opcodes.H_GETSTATIC),
+    H_INVOKE_INTERFACE(Opcodes.H_INVOKEINTERFACE),
+    H_INVOKE_SPECIAL(Opcodes.H_INVOKESPECIAL),
+    H_INVOKE_STATIC(Opcodes.H_INVOKESTATIC),
+    H_INVOKE_VIRTUAL(Opcodes.H_INVOKEVIRTUAL)
+}

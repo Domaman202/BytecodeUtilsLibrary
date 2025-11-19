@@ -1,7 +1,9 @@
 plugins {
     kotlin("jvm") version "2.2.20"
+    id("com.gradleup.nmcp.aggregation").version("1.2.1")
     `maven-publish`
     `java-library`
+    signing
 }
 
 group = "ru.DmN"
@@ -22,6 +24,11 @@ tasks.test {
     useJUnitPlatform()
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -29,7 +36,7 @@ publishing {
 
             pom {
                 name.set("Bytecode Utils Library")
-                description.set("Java bytecode manipulation library.")
+                description.set("Annotation processor for bytecode transformation and manipulation")
                 url.set("https://github.com/Domaman202/BytecodeUtilsLibrary")
 
                 licenses {
@@ -59,11 +66,29 @@ publishing {
     repositories {
         maven {
             name = "OSSRH"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
             credentials {
                 username = System.getenv("MAVEN_USERNAME")
                 password = System.getenv("MAVEN_PASSWORD")
             }
         }
     }
+}
+
+nmcpAggregation {
+    centralPortal {
+        username = System.getenv("MAVEN_USERNAME")
+        password = System.getenv("MAVEN_PASSWORD")
+        group = "io.github.domaman202"
+        publicationName = "io.github.domaman202:BytecodeUtilsLibrary:$version"
+        publishingType = "USER_MANAGED"
+        publishingType = "AUTOMATIC"
+    }
+
+    publishAllProjectsProbablyBreakingProjectIsolation()
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications["mavenJava"])
 }

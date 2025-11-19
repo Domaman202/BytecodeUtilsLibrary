@@ -6,8 +6,8 @@ plugins {
     signing
 }
 
-group = "ru.DmN"
-version = "1.0.0"
+group = "io.github.domaman202" // todo: Временно. Поменять на "ru.DmN".
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -27,6 +27,10 @@ tasks.test {
 java {
     withSourcesJar()
     withJavadocJar()
+}
+
+kotlin {
+    jvmToolchain(8)
 }
 
 publishing {
@@ -79,8 +83,7 @@ nmcpAggregation {
     centralPortal {
         username = System.getenv("MAVEN_USERNAME")
         password = System.getenv("MAVEN_PASSWORD")
-        group = "io.github.domaman202"
-        publicationName = "io.github.domaman202:BytecodeUtilsLibrary:$version"
+        publicationName = "$group:BytecodeUtilsLibrary:$version"
         publishingType = "USER_MANAGED"
         publishingType = "AUTOMATIC"
     }

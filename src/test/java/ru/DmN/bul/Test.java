@@ -8,8 +8,8 @@ public class Test {
     public static CallSite bootstrap(MethodHandles.Lookup lookup, String name, MethodType type, MethodHandle handle) throws Exception {
         if (!type.equals(MethodType.methodType(void.class)))
             throw new RuntimeException("Неожиданный тип вызова: " + type);
-        var printlnHandle = lookup.findVirtual(PrintStream.class, name, MethodType.methodType(void.class, String.class)).bindTo(System.out);
-        var printlnWithHello = MethodHandles.insertArguments(printlnHandle, 0, String.valueOf(handle));
+        MethodHandle printlnHandle = lookup.findVirtual(PrintStream.class, name, MethodType.methodType(void.class, String.class)).bindTo(System.out);
+        MethodHandle printlnWithHello = MethodHandles.insertArguments(printlnHandle, 0, String.valueOf(handle));
         return new ConstantCallSite(printlnWithHello.asType(type));
     }
 

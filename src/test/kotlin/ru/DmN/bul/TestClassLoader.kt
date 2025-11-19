@@ -18,7 +18,7 @@ class TestClassLoader : URLClassLoader(emptyArray()) {
             val file = "${name.replace('.', '/')}.class"
             val stream = this.getResourceAsStream(file)
             stream ?: throw ClassNotFoundException(name);
-            val bytes = stream.readAllBytes()
+            val bytes = stream.readBytes()
             val processor = ClassProcessor()
             ClassReader(bytes).accept(processor, 0)
             val processed = ClassWriter(ClassWriter.COMPUTE_MAXS).apply { processor.accept(this) }.toByteArray()
